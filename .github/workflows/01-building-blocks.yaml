@@ -1,0 +1,23 @@
+name: 01 - Building Blocks
+
+on: push
+
+jobs:
+  echo-hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Hello
+        run: echo "Hello World!"
+  echo-goodbye:
+    runs-on: ubuntu-latest
+    steps:
+      # When a step fails:
+      # - The remaining steps in the job will not run. 
+      # - The job will be marked as failed.
+      # - The workflow will be considered failed, and any subsequent jobs that depend on this job will not run.
+      - name: Failed Step
+        run: |
+          echo "This step will fail"
+          exit 1
+      - name: Say Goodbye
+        run: echo "Goodbye World!"
