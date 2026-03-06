@@ -2,11 +2,11 @@ name: 02 - Workflow Events
 
 on:
   # When you have triggers that require configuration (like schedule with cron), you can't mix array-style syntax (- push) with mapping-style syntax. 
-  push:
+  # push:
   pull_request:
   workflow_dispatch:
-  schedule:
-    - cron: '*/5 * * * *' # Every 5 minutes
+  # schedule:
+  #   - cron: '*/5 * * * *' # Every 5 minutes
 
 jobs:
   echo:
