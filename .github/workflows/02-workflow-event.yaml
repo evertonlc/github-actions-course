@@ -1,6 +1,7 @@
 name: 02 - Workflow Events
 
-on: 
+on:
+  # When you have triggers that require configuration (like schedule with cron), you can't mix array-style syntax (- push) with mapping-style syntax. 
   push:
   pull_request:
   workflow_dispatch:
