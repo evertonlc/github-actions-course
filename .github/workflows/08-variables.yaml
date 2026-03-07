@@ -2,7 +2,6 @@
 # https://docs.github.com/en/actions/concepts/workflows-and-actions/variables
 name: 08 - Variables
 on:
-  push:
   workflow_dispatch:
 env:
   WORKFLOW_VAR: "I am a workflow env var"
