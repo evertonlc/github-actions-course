@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
   push:
 # Invalid context, available expression contexts: github, inputs, vars
-run-name: 06 - Context | DEBUG - ${{ inputs.debug }}}}
+run-name: 06 - Context | DEBUG - ${{ inputs.debug }}
 
 jobs:
   echo:
