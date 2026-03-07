@@ -3,19 +3,26 @@
 # - https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#context-availability
 # - https://docs.github.com/en/actions/learn-github-actions/contexts#about-contexts
 name: 06 - Contexts
+# Invalid context, available expression contexts: github, inputs, vars
+run-name: 06 - Context | DEBUG - ${{ inputs.debug }}
 on:
+  push:
   workflow_dispatch:
     inputs:
       debug:
         type: boolean
         default: false
-  push:
-# Invalid context, available expression contexts: github, inputs, vars
-run-name: 06 - Context | DEBUG - ${{ inputs.debug }}
+
+env:
+  MY_WORKFLOW_VAR: "workflow"
+  MY_OVERRITTEN_VAR: "workflow"
 
 jobs:
   echo:
     runs-on: ubuntu-latest
+    env:
+      MY_JOB_VAR: "job"
+      MY_OVERRITTEN_VAR: "job"
     steps:
       - name: Display Information
         run: |
@@ -27,4 +34,28 @@ jobs:
           echo "Run number: ${{ github.run_number }}"
           echo "Run ID: ${{ github.run_id }}"
       - name: Retrieve Variable
-        run: echo ${{ vars.MY_VAR }}
+        run: |
+          echo ${{ vars.MY_VAR }}
+      - name: Print Env Varialbles (job)
+        env:
+          MY_OVERRITTEN_VAR: "step"
+        run: |
+          echo "Workflow Variable: env ${{ env.MY_WORKFLOW_VAR }}"
+          echo "Job Variable: ${{ env.MY_JOB_VAR }}"
+          echo "Overwritten Variable: ${{ env.MY_OVERRITTEN_VAR }}"
+      - name: Print Env Varialbles (step)
+        env:
+          MY_OVERRITTEN_VAR: "step"
+        run: |
+          echo "Workflow Variable: env ${{ env.MY_WORKFLOW_VAR }}"
+          echo "Job Variable: ${{ env.MY_JOB_VAR }}"
+          echo "Overwritten Variable: ${{ env.MY_OVERRITTEN_VAR }}"
+  echo-data-alternative:
+    runs-on: ubuntu-latest
+    steps:
+      # Print alternative syntax for envs
+      - name: Print Env Variables
+        run: |
+          echo "Workflow Variable: env $MY_WORKFLOW_VAR"
+          echo "Overwritten Variable: $MY_OVERRITTEN_VAR"
+      
