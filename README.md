@@ -100,6 +100,24 @@ This repository contains several workflow examples demonstrating different GitHu
 
 ---
 
+#### 6. [05-2-filter-activity-types.yaml](.github/workflows/05-2-filter-activity-types.yaml)
+**Purpose:** Demonstrates filtering for PR closed events
+
+**Key Concepts:**
+- Handling pull request closure events
+- Branch-specific filtering
+- Post-merge or PR close automation
+
+**Features:**
+- Only runs on pull requests targeting the `main` branch
+- Filtered to the `closed` activity type exclusively
+- Useful for cleanup tasks, notifications, or post-merge actions
+- Runs regardless of whether the PR was merged or closed without merging
+
+**Trigger:** Pull request closed on main branch
+
+---
+
 ## 🚀 How to Use These Workflows
 
 ### Running Workflows Manually
@@ -113,6 +131,7 @@ Most workflows can be triggered manually using workflow_dispatch:
 Some workflows run automatically:
 - **02-workflow-event.yaml**: Runs on pull request events
 - **05-1-filter-activity-types.yaml**: Runs when PRs are opened or updated against main
+- **05-2-filter-activity-types.yaml**: Runs when PRs are closed on main
 
 ## 📚 Learning Path
 
@@ -133,7 +152,8 @@ These workflows are organized to progressively teach GitHub Actions concepts:
     ├── 02-workflow-event.yaml
     ├── 03-workflow-runners.yaml
     ├── 04-using-actions.yaml
-    └── 05-1-filter-activity-types.yaml
+    ├── 05-1-filter-activity-types.yaml
+    └── 05-2-filter-activity-types.yaml
 
 04-using-actions/
 └── react-app/
