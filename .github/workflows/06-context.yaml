@@ -5,6 +5,10 @@
 name: 06 - Contexts
 on:
   workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        default: false
   push:
 # Invalid context, available expression contexts: github, inputs, vars
 run-name: 06 - Context | DEBUG - ${{ inputs.debug }}
