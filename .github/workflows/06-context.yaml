@@ -58,9 +58,3 @@ jobs:
         run: |
           echo "Workflow Variable: env $MY_WORKFLOW_VAR"
           echo "Overwritten Variable: $MY_OVERRITTEN_VAR"
-  echo-env:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print Env Variables
-        run: echo ${{ fromJson(env) }}
-      
