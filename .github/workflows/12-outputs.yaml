@@ -39,3 +39,4 @@ jobs:
       - name: Print Outputs
         run: |
           echo "Build Status: ${{ needs.build.outputs.build-status }}"
+          echo "Build Status: ${{ needs.build.outputs.output1 }}"
