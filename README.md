@@ -118,6 +118,97 @@ This repository contains several workflow examples demonstrating different GitHu
 
 ---
 
+#### 7. [06-context.yaml](.github/workflows/06-context.yaml)
+**Purpose:** Demonstrates accessing and using GitHub Actions context objects
+
+**Key Concepts:**
+- Working with context objects (`github`, `env`, `vars`, `inputs`)
+- Accessing workflow metadata and event information
+- Environment variable scope and precedence
+- Context availability in different workflow sections
+
+**Features:**
+- Displays common `github` context properties:
+  - Event name, ref, SHA, actor, workflow name, run number/ID
+- Shows environment variable precedence (workflow → job → step level)
+- Demonstrates variable overriding at different scopes
+- Retrieves repository and organization variables using `vars` context
+- Dynamic run name using `inputs.debug` parameter
+- Alternative syntax for accessing environment variables
+
+**Trigger:** Manual dispatch only (with optional debug input)
+
+---
+
+#### 8. [07-expressions.yaml](.github/workflows/07-expressions.yaml)
+**Purpose:** Shows how to use expressions for conditional execution
+
+**Key Concepts:**
+- Boolean logic in expressions
+- Conditional step execution using `if`
+- Combining multiple conditions with logical operators
+- Ternary-like operations using `&&` and `||`
+
+**Features:**
+- Dynamic run name with conditional text (`ON` or `OFF` based on debug input)
+- Conditional debug steps that only run when `inputs.debug` is true
+- Multi-condition expressions combining input values and context data
+- Demonstrates checking branch references with expressions
+- Clean separation of debug and production output
+
+**Trigger:** Manual dispatch only (with optional debug input)
+
+---
+
+#### 9. [08-variables.yaml](.github/workflows/08-variables.yaml)
+**Purpose:** Demonstrates environment variables at different scopes and levels
+
+**Key Concepts:**
+- Variable definition at workflow, job, and step levels
+- Variable scope and precedence rules
+- Repository and organization variables
+- Environment-specific variables
+- Default values for undefined variables
+
+**Features:**
+- Three-level variable hierarchy demonstration:
+  - Workflow-level environment variables
+  - Job-level environment variables (override workflow level)
+  - Step-level environment variables (override job level)
+- Shows how to override variables at different scopes
+- Accesses repository variables with `vars` context
+- Environment-specific variables using `environment: prod`
+- Demonstrates default value pattern: `${{ vars.UNDEFINED_VAR || 'default value' }}`
+
+**Trigger:** Manual dispatch only
+
+---
+
+#### 10. [09-functions.yaml](.github/workflows/09-functions.yaml)
+**Purpose:** Demonstrates built-in GitHub Actions functions and status check functions
+
+**Key Concepts:**
+- Status check functions (`success()`, `failure()`, `cancelled()`)
+- Data manipulation functions (`toJSON()`, `contains()`)
+- Conditional execution based on step outcomes
+- Working with complex event data structures
+
+**Features:**
+- Accesses pull request title and labels from event payload
+- Uses `toJSON()` to pretty-print complex objects
+- Demonstrates status check functions:
+  - `success()`: Runs only if previous steps succeeded
+  - `failure()`: Runs only if any previous step failed
+  - `cancelled()`: Runs only if workflow was cancelled
+  - `!cancelled()`: Runs always except when cancelled
+- Shows `contains()` function for string matching in PR titles
+- Combines multiple conditions with logical operators
+- Practical example of conditional cleanup or notification steps
+
+**Trigger:** Pull request events and manual dispatch
+
+---
+
 ## 🚀 How to Use These Workflows
 
 ### Running Workflows Manually
@@ -132,6 +223,7 @@ Some workflows run automatically:
 - **02-workflow-event.yaml**: Runs on pull request events
 - **05-1-filter-activity-types.yaml**: Runs when PRs are opened or updated against main
 - **05-2-filter-activity-types.yaml**: Runs when PRs are closed on main
+- **09-functions.yaml**: Runs on pull request events and manual dispatch
 
 ## 📚 Learning Path
 
@@ -142,6 +234,10 @@ These workflows are organized to progressively teach GitHub Actions concepts:
 3. **Explore Runners** (03) - Learn about different execution environments
 4. **Use Actions** (04) - Learn to leverage pre-built actions
 5. **Master Filters** (05) - Learn to optimize when workflows run
+6. **Work with Context** (06) - Learn to access workflow metadata and context objects
+7. **Apply Expressions** (07) - Learn conditional logic and dynamic behavior
+8. **Manage Variables** (08) - Learn variable scopes and environment configuration
+9. **Use Functions** (09) - Learn built-in functions and status checks
 
 ## 🛠️ Project Structure
 
@@ -153,7 +249,11 @@ These workflows are organized to progressively teach GitHub Actions concepts:
     ├── 03-workflow-runners.yaml
     ├── 04-using-actions.yaml
     ├── 05-1-filter-activity-types.yaml
-    └── 05-2-filter-activity-types.yaml
+    ├── 05-2-filter-activity-types.yaml
+    ├── 06-context.yaml
+    ├── 07-expressions.yaml
+    ├── 08-variables.yaml
+    └── 09-functions.yaml
 
 04-using-actions/
 └── react-app/
