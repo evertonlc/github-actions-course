@@ -17,8 +17,36 @@ on:
         default: '20.x'
 
 jobs:
+  install-deps:
+    runs-on: ubuntu-latest
+    outputs:
+      CACHE_KEY: ${{ steps.cache-key.outputs.CACHE_KEY }}
+    defaults:
+      run:
+        working-directory: 13-caching/react-app
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with: 
+          node-version: ${{ github.event.inputs.node-version }}
+      - name: Calculate cache key
+        id: cache-key
+        run: echo "CACHE_KEY=deps-node-modules-${{ hashFiles('13-caching/react-app/package-lock.json') }}" >> $GITHUB_OUTPUT
+      - name: Download cached dependencies
+        if: ${{ github.event.inputs.use-cache }}
+        id: cache
+        uses: actions/cache@v5
+        with:
+          path: 13-caching/react-app/node_modules
+          key: ${{ steps.cache-key.outputs.CACHE_KEY }}
+      - name: Install dependencies
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        run: npm ci
   build:
     runs-on: ubuntu-latest
+    needs: install-deps
     defaults:
       run:
         # This working directory apply only to run commands, not to actions
@@ -36,7 +64,7 @@ jobs:
         uses: actions/cache@v5
         with:
           path: 13-caching/react-app/node_modules
-          key: deps-node-modules-${{ hashFiles('13-caching/react-app/package-lock.json') }}
+          key: ${{ needs.install-deps.outputs.CACHE_KEY }}
       - name: Install dependencies
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: npm ci
@@ -46,3 +74,27 @@ jobs:
         run: npm run build
       - name: Deploy to nonprod
         run: echo "Deploying to nonprod environment"
+  linting:
+    runs-on: ubuntu-latest
+    needs: install-deps
+    defaults:
+      run:
+        working-directory: 13-caching/react-app
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with: 
+          node-version: ${{ github.event.inputs.node-version }}
+      - name: Download cached dependencies
+        if: ${{ github.event.inputs.use-cache }}
+        id: cache
+        uses: actions/cache@v5
+        with:
+          path: 13-caching/react-app/node_modules
+          key: ${{ needs.install-deps.outputs.CACHE_KEY }}
+      - name: Testing
+        run: npm run test
+      - name: Linting
+        run: echo "Linting..."
