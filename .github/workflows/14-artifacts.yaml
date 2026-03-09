@@ -31,13 +31,13 @@ jobs:
         run: npm ci
       - name: Unit tests
         run: npm run test --coverage
-      - name: Build code
-        run: npm run build
       - name: Upload test results
         uses: actions/upload-artifact@v7
         with:
           name: ${{ env.test-coverage-key }}
           path: 14-artifacts/react-app/coverage
+      - name: Build code
+        run: npm run build
       - name: Upload build artifacts
         uses: actions/upload-artifact@v7
         with:
