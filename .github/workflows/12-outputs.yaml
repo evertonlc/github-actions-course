@@ -23,7 +23,9 @@ jobs:
           echo "GITHUB_OUTPUT is set to: $GITHUB_OUTPUT"
       - name: Build
         id: build
+        # This will first echo will print a different output file from the first step
         run: |
+          echo "GITHUB_OUTPUT is set to: $GITHUB_OUTPUT"
           echo "status=${{ inputs.build-status }}" >> $GITHUB_OUTPUT
           cat "$GITHUB_OUTPUT"
           echo "output1=output1" >> $GITHUB_OUTPUT
