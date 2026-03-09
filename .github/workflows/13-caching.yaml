@@ -7,12 +7,21 @@ on:
         type: boolean
         description: "Whether to execute the cache step"
         default: true
+      node-version:
+        type: choice
+        description: "Node version to use"
+        options:
+          - '18.x'
+          - '20.x'
+          - '21.x'
+        default: '20.x'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
       run:
+        # This working directory apply only to run commands, not to actions
         working-directory: 13-caching/react-app
     steps:
       - name: Checkout code
@@ -20,8 +29,16 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with: 
-          node-version: '20.x'
+          node-version: ${{ github.event.inputs.node-version }}
+      - name: Download cache dependencies
+        if: ${{ github.event.inputs.use-cache }}
+        id: cache
+        uses: actions/cache@v5
+        with:
+          path: 13-caching/react-app/node_modules
+          key: deps-node-modules-${{ hashFiles('13-caching/react-app/package-lock.json') }}
       - name: Install dependencies
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: npm ci
       - name: Testing
         run: npm run test
