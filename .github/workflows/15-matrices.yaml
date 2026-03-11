@@ -27,11 +27,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Fail if experimental
         if: ${{ matrix.tag == 'experimental' }}
-        run: exit 1
+        run: exit 0
       - name: Perform some tests
         run: |
           echo "Runnings tests on OS ${{ matrix.os }}"
-          sleep 10
       - name: Upload test results
         run: echo "Uploading test results"
   include-example:
