@@ -49,7 +49,7 @@ jobs:
             shape: triangle
           - opacity: 50
           - color: green
-            shape: shape
+            shape: circle
             size: medium
         exclude:
           - color: green
