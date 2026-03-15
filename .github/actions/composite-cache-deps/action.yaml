@@ -28,6 +28,6 @@ runs:
         key: action-${{ inputs.target-env }}-${{ hashFiles(format('{0}/{1}', inputs.working-dir, 'package-lock.json')) }}
     - name: Install Dependencies
       if: ${{ steps.cache-deps.outputs.cache-hit != 'true' }}
-      run: npm ci ${{ inputs.target-env == 'dev' && '' || '--omit=dev' }}
+      run:  ${{ inputs.target-env == 'dev' && 'npm ci' || 'npm ci --omit=dev' }}
       shell: bash
       working-directory: ${{ inputs.working-dir }}
