@@ -24,7 +24,7 @@ runs:
       uses: actions/cache@v5
       with:
         path: ${{ inputs.working-dir }}/node_modules
-        key: action-$${{ inputs.target-env }}-${{ hashFiles(format('{0}/{1}', inputs.working-dir, 'package-lock.json')) }}
+        key: action-${{ inputs.target-env }}-${{ hashFiles(format('{0}/{1}', inputs.working-dir, 'package-lock.json')) }}
     - name: Install Dependencies
       if: ${{ steps.cache-deps.outputs.cache-hit != 'true' }}
       run: npm ci ${{ inputs.target-env == 'prod' && '--omit=dev' }}
