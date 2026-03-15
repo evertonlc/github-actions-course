@@ -28,6 +28,7 @@ jobs:
         with:
           node-version: '20.x'
           working-dir: ${{ env.working-directory }}
+          target-env: ${{ github.event.inputs.target-env }}
       - name: Run unit tests
         run: npm run test
       - name: Run build
