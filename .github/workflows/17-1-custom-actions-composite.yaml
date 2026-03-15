@@ -5,6 +5,7 @@ on:
     inputs:
       target-env:
         type: choice
+        default: dev
         options:
           - dev
           - prod
