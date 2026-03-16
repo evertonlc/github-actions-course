@@ -23,6 +23,9 @@ run-name: "Run 17 - 2 - Custom Actions - JS | Base Branch: ${{ github.event.inpu
 jobs:
   dependency-update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v3
