@@ -12,6 +12,8 @@ jobs:
   ping-url:
     runs-on: ubuntu-latest
     steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v3
       - name: "Ping URL using custom Docker action"
         uses: ./.github/actions/docker-ping-url
         with:
