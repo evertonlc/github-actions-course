@@ -21,10 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout code"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - name: "Ping URL using custom Docker action"
         uses: ./.github/actions/docker-ping-url
         with:
           url: ${{ github.event.inputs.url }}
-          max-trials: ${{ github.event.inputs.max_trials }}
-          delay-seconds: ${{ github.event.inputs.delay_seconds }}
+          max_trials: ${{ github.event.inputs.max_trials }}
+          delay_seconds: ${{ github.event.inputs.delay_seconds }}
