@@ -20,6 +20,9 @@ inputs:
     description: "Whether to output debug messages to the console"
     required: false
   
+outputs:
+  updates-available:
+    description: "Whether there are updates available for the dependencies"
 
 runs:
   using: node24
