@@ -25,6 +25,7 @@ jobs:
       - name: "Ping URL using custom Docker action"
         id: ping-url
         uses: ./.github/actions/docker-ping-url
+        continue-on-error: true
         with:
           url: ${{ github.event.inputs.url }}
           max_trials: ${{ github.event.inputs.max_trials }}
