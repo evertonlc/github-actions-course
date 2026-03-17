@@ -20,13 +20,17 @@ def run():
     max_trials = int(os.getenv("INPUT_MAX_TRIALS"))
     delay_seconds = int(os.getenv("INPUT_DELAY_SECONDS"))
 
+    file=open(os.getenv("GITHUB_OUTPUT"), "a")
+
     if not url:
         print("URL environment variable is not set.")
         return
-
+        
     if ping_url(url, max_trials, delay_seconds):
         print(f"Successfully pinged {url}")
+        print(f'url-reachable=true', file=file)
     else:
+        print(f'url-reachable=false', file=file)
         exit(f"Failed to ping {url} after {max_trials} attempts.")
 
 if __name__ == "__main__":

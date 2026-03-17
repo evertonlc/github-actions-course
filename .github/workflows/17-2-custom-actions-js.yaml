@@ -38,6 +38,6 @@ jobs:
           working-directory: ${{ github.event.inputs.working-dir }}
           gh-token: ${{ secrets.GITHUB_TOKEN }}
           debug: ${{ github.event.inputs.debug }}
-      - name: "Print custo action output"
+      - name: "Print Javascript action output"
         run: |
           echo "Updates available: ${{ steps.update-deps.outputs.updates-available }}"
